@@ -1,0 +1,75 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{hyperref}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{fancyhdr} % Paquete para personalizar encabezados y pies de página
+\usepackage{graphicx} % Para incluir imágenes
+\usepackage{geometry} % Para ajustar los márgenes
+
+% Configuración de márgenes
+\geometry{a4paper, margin=1in}
+
+% Configuración de encabezado y pie de página
+\pagestyle{fancy}
+\fancyhf{} % Limpia los encabezados y pies de página
+% \fancyhead[L]{\includegraphics[width=2cm]{logo.png}} % Imagen a la izquierda (cambia "logo.png" por el archivo de tu logo)
+\fancyhead[L]{\textbf{Universidad de la República \\ Métodos Numéricos - 2024}}
+\fancyhead[R]{\textbf{CENUR Litoral Norte \\ Sede Salto}}
+
+% Línea debajo del encabezado
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Línea encima del pie de página
+\renewcommand{\footrulewidth}{0pt}
+
+\begin{document}
+
+% \maketitle
+
+\begin{abstract}
+  This article explores various numerical methods for solving recommendation systems. We discuss the mathematical foundations, implementation details, and performance evaluations of these methods.
+\end{abstract}
+
+\section{Introduction}
+Recommendation systems are crucial in various applications such as e-commerce, streaming services, and social media. This paper investigates numerical methods to solve recommendation systems efficiently.
+
+\section{Mathematical Background}
+\subsection{Matrix Factorization}
+Explain the concept of matrix factorization and its relevance to recommendation systems.
+
+\subsection{Gradient Descent}
+Discuss the gradient descent algorithm and its application in optimizing recommendation systems.
+
+\section{Numerical Methods}
+\subsection{Singular Value Decomposition (SVD)}
+Detail the SVD method and how it can be used to decompose the user-item interaction matrix.
+
+\subsection{Alternating Least Squares (ALS)}
+Explain the ALS algorithm and its implementation for recommendation systems.
+
+\section{Implementation}
+\subsection{Dataset}
+Describe the dataset used for testing the numerical methods.
+
+\subsection{Algorithm Implementation}
+Provide details on the implementation of the discussed algorithms.
+
+\section{Results}
+Present the results of the numerical methods applied to the dataset. Include performance metrics and comparisons.
+
+\section{Conclusion}
+Summarize the findings and discuss potential future work in the field of recommendation systems using numerical methods.
+
+\begin{thebibliography}{9}
+  \bibitem{example1}
+  Author, \textit{Title}, Journal, Year.
+  
+  \bibitem{example2}
+  Author, \textit{Title}, Journal, Year.
+\end{thebibliography}
+
+\end{document}
