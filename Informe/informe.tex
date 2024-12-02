@@ -604,7 +604,7 @@ Los datos que se obtienen pueden hacer un poco de ruido a primera vista, pensand
 \subsection*{Resultados de filtrado colaborativo}
 Para el caso de filtrado basado en contenidos, vimos como en las implementaciones de \texttt{alternatingMinimization} y \texttt{tychonoffRegularization} se guardaba el error cuadrático medio en cada iteración, esto nos permite graficar la evolución del error en función de las iteraciones, lo que nos permite ver si el modelo converge y si lo hace, en cuántas iteraciones lo hace.
 
-A modo de no saturar con gráficas el informe, adjuntamos en en la ruta\\ \texttt{Código/scripts\_parte2/figuras} diferentes gráficas que muestran la evolución del error cuadrático medio en función de las iteraciones para diferentes valores de \( f \) y \( \lambda \).	
+A modo de no saturar con gráficas el informe, adjuntamos en \cite{repoGithub} en la ruta\\ \texttt{Código/scripts\_parte2/figuras} diferentes gráficas que muestran la evolución del error cuadrático medio en función de las iteraciones para diferentes valores de \( f \) y \( \lambda \).	
 
 Lo que observamos en dichas figuras es que a medida que aumentamos la dimensión de las variables latentes \( f \), el error cuadrático medio disminuye, lo que indica que el modelo es capaz de ajustarse mejor a los datos. Sin embargo, este efecto no es lineal, y a partir de cierto valor de \( f \) el error comienza a estabilizarse, lo que sugiere que agregar más variables latentes no necesariamente mejora la calidad de las recomendaciones.
 
