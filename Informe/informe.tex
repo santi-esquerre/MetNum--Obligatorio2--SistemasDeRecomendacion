@@ -1,75 +1,631 @@
-\documentclass[12pt]{article}
-\usepackage[utf8]{inputenc}
+\documentclass[12pt,a4paper]{article}
+%----------------PAQUETES----------------------------
+\usepackage{geometry}
 \usepackage[spanish]{babel}
-\usepackage{hyperref}
-\usepackage{algorithm}
-\usepackage{algorithmic}
-\usepackage{booktabs}
+\usepackage[utf8]{inputenc}
+\usepackage[centertags]{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
 \usepackage{amsmath}
-\usepackage{fancyhdr} % Paquete para personalizar encabezados y pies de página
-\usepackage{graphicx} % Para incluir imágenes
-\usepackage{geometry} % Para ajustar los márgenes
+\usepackage{bm}
+\usepackage{amsthm}
+\usepackage{amscd}
+\usepackage{multicol}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{titling}
+\usepackage{cite}
+\usepackage[framemethod=tikz]{mdframed}
+% \usepackage{cascadia-code}
+% \usepackage{DejaVuSansMono}
 
-% Configuración de márgenes
-\geometry{a4paper, margin=1in}
+\newcommand*{\myfont}{\fontfamily{\ttdefault}\selectfont}
+\newcommand{\ttt}{\scriptsize\myfont\color{monokai-fg}}
+%------Configuración de colores para el esquema Monokai-----
+\definecolor{monokai-bg}{rgb}{0.16,0.17,0.17} % Fondo oscuro
+\definecolor{monokai-fg}{rgb}{0.9,0.9,0.9}    % Texto base (blanco suave)
+\definecolor{monokai-comment}{rgb}{0.50,0.57,0.55} % Comentarios (gris)
+\definecolor{monokai-keyword}{rgb}{0.95,0.27,0.52} % Palabras clave (rosa brillante)
+\definecolor{monokai-string}{rgb}{0.72,0.87,0.36}  % Strings (verde)
+\definecolor{monokai-number}{rgb}{0.96,0.71,0.16}  % Números (amarillo)
+\definecolor{monokai-identifier}{rgb}{0.73,0.93,0.96} % Identificadores (cian claro)
+\definecolor{monokai-function}{rgb}{0.86,0.85,0.47}  % Funciones (amarillo claro)
 
-% Configuración de encabezado y pie de página
-\pagestyle{fancy}
-\fancyhf{} % Limpia los encabezados y pies de página
-% \fancyhead[L]{\includegraphics[width=2cm]{logo.png}} % Imagen a la izquierda (cambia "logo.png" por el archivo de tu logo)
-\fancyhead[L]{\textbf{Universidad de la República \\ Métodos Numéricos - 2024}}
-\fancyhead[R]{\textbf{CENUR Litoral Norte \\ Sede Salto}}
+%------Configuración de listings para Monokai-----
+\lstset{
+  language=matlab,                      % Lenguaje del código
+  backgroundcolor=\color{monokai-bg},   % Color de fondo
+  frame=L,                              % Línea a la izquierda
+  framerule=6pt,                        % Grosor del marco
+  % linesep=-1pt, % Elimina separación entre las líneas del código
+  rulecolor=\color{monokai-fg},         % Color del marco
+  rulesepcolor=\color{monokai-fg},       
+  numbers=left,                         % Números de línea a la izquierda
+  numberstyle=\tiny\myfont\color{monokai-comment}, % Estilo de los números de línea
+  basicstyle=\scriptsize\myfont\color{monokai-fg}, % Estilo base del texto
+  keywordstyle=\color{monokai-keyword}\bfseries,   % Estilo para palabras clave
+  stringstyle=\color{monokai-string},   % Estilo para cadenas
+  commentstyle=\color{monokai-comment}\itshape,    % Estilo para comentarios
+  identifierstyle=\color{monokai-identifier},      % Estilo para identificadores
+  numbersep=5pt,                        % Separación de los números de línea
+  captionpos=b,                         % Posición de las leyendas
+  breaklines=true,                      % División automática de líneas
+  breakatwhitespace=false,              % No dividir solo en espacios
+  showspaces=false,                     % No mostrar espacios
+  showstringspaces=false,               % No mostrar espacios en cadenas
+  showtabs=false,
+  extendedchars=true,                 
+  tabsize=2,                           % Tamaño del tabulador
+  morekeywords={matlab2tikz},           % Palabras clave adicionales
+  morekeywords=[2]{1},                  % Configuración para otros niveles de palabras clave
+  keywordstyle=[2]{\color{monokai-function}\bfseries} % Estilo para funciones
+}
 
-% Línea debajo del encabezado
-\renewcommand{\headrulewidth}{0.4pt}
+% \definecolor{mygreen}{rgb}{0,0.6,0}
+% \definecolor{mygray}{rgb}{0,.1,0.1}
+% \definecolor{mydarkgray}{RGB}{201,201,201}
+% \definecolor{mylightgray}{rgb}{0.98,0.98,0.98}
+% \definecolor{mymauve}{rgb}{0.58,0,0.82}
+% % \definecolor{myCremita}{rgb}{0.80,0.96,0.92}
+% \definecolor{myCremita}{RGB}{255,255,228}
+% \definecolor{myblanco}{RGB}{255,255,255}
+% \definecolor{mydarkblue}{RGB}{8,25,93}
+% \definecolor{myblue}{RGB}{180,31,31}
+% \definecolor{mycyan}{RGB}{0,255,255}
+% \lstset{
+%  language=matlab,
+%   %backgroundcolor=\color{mylightgray},   % elegimos el color de fondo
+%  backgroundcolor=\color{myCremita},     % elegimos el color de fondo
+%  frame=L,                 % ponemos una linea vertical a la izquierda (none/L/leftline/topline/bottomline/lines/single/shadowbox)
+%  framerule=6pt, 
+%   rulecolor=\color{mydarkblue},
+%  rulesepcolor=\color{mydarkblue},
+%  numbers=left,               % ponemos numero de lineas a la izquierda (none, left, right)
+%   basicstyle=\scriptsize\myfont ,          % size of fonts used for the code
+%   captionpos=b,                        % sets the caption-position to bottom
+%   commentstyle=\color{mygreen},        % color de los comentarios
+%   escapeinside={\%*}{*)},              % if you want to add LaTeX within your code
+%   keywordstyle=\color{blue},           % keyword style
+%   stringstyle=\color{mymauve},         % string literal style
+%   numberstyle=\tiny\myfont\color{mycyan},
+%   breakatwhitespace=false,
+%   breaklines=true,                     % automatic line breaking only at whitespace
+%   keepspaces=true,                
+%   numbersep=5pt,                 
+%   showspaces=false,               
+%   showstringspaces=false,
+%   showtabs=false,                 
+%   tabsize=2,
+%   morekeywords={matlab2tikz},
+%   morekeywords=[2]{1}, keywordstyle=[2]{\color{black}}
+% }
 
-% Línea encima del pie de página
-\renewcommand{\footrulewidth}{0pt}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm,
+  }
+  \setlength{\headheight}{14.49998pt}
+  \addtolength{\topmargin}{-2.49998pt}
+
+\title{Obligatorio 2: Sistemas de Recomendación}
+\author{Santiago Esquerré \and Candela Giménez}
+\date{\today}
+ 
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+    \fancyhf{} % clear all header and footer fields
+    \fancyfoot[L]{\today}
+    \fancyhead[L]{Métodos Numéricos 2024 - Obligatorio 2}
+    \fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 1em%
+  \begin{center}%
+  \let\footnote\thanks
+    {\LARGE \@title\par}%
+    \vskip 1em%
+    %{\large \@date}%
+  \end{center}%
+  \par
+  \vskip 1em}
+\makeatother
+
 
 \begin{document}
 
-% \maketitle
+\maketitle
 
-\begin{abstract}
-  This article explores various numerical methods for solving recommendation systems. We discuss the mathematical foundations, implementation details, and performance evaluations of these methods.
-\end{abstract}
+\noindent\begin{tabular}{@{}ll}
+  Estudiantes: & \theauthor                                  \\
+  Docente:     & Dr.\ Mario González                       
+\end{tabular}
 
-\section{Introduction}
-Recommendation systems are crucial in various applications such as e-commerce, streaming services, and social media. This paper investigates numerical methods to solve recommendation systems efficiently.
+\section*{Introducción}
 
-\section{Mathematical Background}
-\subsection{Matrix Factorization}
-Explain the concept of matrix factorization and its relevance to recommendation systems.
+Los sistemas de recomendación se han convertido en herramientas fundamentales en diversas aplicaciones comerciales, como plataformas de streaming (Netflix, Spotify, YouTube) y comercio electrónico (Amazon, Mercado Libre). Su objetivo principal es predecir las preferencias o puntajes que un usuario asignaría a un ítem específico, como películas, canciones o productos, basándose en información histórica.\\
 
-\subsection{Gradient Descent}
-Discuss the gradient descent algorithm and its application in optimizing recommendation systems.
 
-\section{Numerical Methods}
-\subsection{Singular Value Decomposition (SVD)}
-Detail the SVD method and how it can be used to decompose the user-item interaction matrix.
+Existen dos enfoques principales para construir sistemas de recomendación:
+\begin{itemize}
+  \item \textbf{Filtrado basado en contenido:} Este modelo utiliza características predefinidas de los ítems, como el género, director o elenco de una película, para recomendar elementos similares que coincidan con las preferencias individuales de un usuario.
+  \item \textbf{Filtrado colaborativo:} Este enfoque se basa en el comportamiento colectivo de los usuarios, asumiendo que aquellos con preferencias similares en el pasado compartirán intereses futuros. A diferencia del filtrado basado en contenido, este modelo no requiere características predefinidas de los ítems.
+\end{itemize}
 
-\subsection{Alternating Least Squares (ALS)}
-Explain the ALS algorithm and its implementation for recommendation systems.
+En este trabajo, se exploran estos dos métodos aplicados al conjunto de datos `MovieLens small', que contiene más de 100,000 puntuaciones realizadas por 610 usuarios sobre 9,742 películas. El problema se aborda mediante el uso de mínimos cuadrados y regularización para minimizar el error cuadrático medio entre los puntajes estimados y los reales, siguiendo las ideas del sistema ganador del Netflix Prize. También se evalúa el impacto de parámetros clave, como la regularización y la dimensionalidad de las representaciones, en la calidad de las recomendaciones.
 
-\section{Implementation}
-\subsection{Dataset}
-Describe the dataset used for testing the numerical methods.
+\section*{Modelado del Problema}
 
-\subsection{Algorithm Implementation}
-Provide details on the implementation of the discussed algorithms.
+La esencia de cualquier sistema de recomendación se centra en estimar el puntaje \(r_{ui}\) que un usuario \(u\), le asigna a un ítem \(i\) (en este caso una película), basándose en la información que los usuarios generan a medida que interactúan con el sistema.
+Este problema puede ser modelado como una aproximación por mínimos cuadrados, modelando los datos disponibles (tanto de los usuarios como de los ítem) en lo que se llama un espacio latente.\footnote{Un espacio multidimensional abstracto que contiene valores de características que no podemos interpretar directamente, pero que codifica una representación interna significativa de los eventos observados externamente.}
 
-\section{Results}
-Present the results of the numerical methods applied to the dataset. Include performance metrics and comparisons.
+Recordemos que un problema de aproximación por mínimos cuadrados consiste en que dado un conjunto de \(m\) datos \({\{(t_i, y_i)\}}_{ i \in \{1,\ldots, m\}} \subset \mathbb{R}^2\), buscamos un `ajuste' para estos datos a partir de una combinación lineal de funciones linealmente independientes \(\phi_1, \ldots, \phi_n\). Es decir, buscamos:
+\[
+  f(t) = \sum_{j=1}^{n} x_j \phi_j(t) \quad \text{tal que} \quad y_i \approx f(t_i)
+\]
 
-\section{Conclusion}
-Summarize the findings and discuss potential future work in the field of recommendation systems using numerical methods.
+Lo que se traduce en hallar un vector \(\mathbf{x} \in \mathbb{R}^n\) que cumpla:
 
-\begin{thebibliography}{9}
-  \bibitem{example1}
-  Author, \textit{Title}, Journal, Year.
+\[
+  \mathbf{x} = \arg\min_{\mathbf{v} \in \mathbb{R}^n }  \left[ \sum_{k=1}^{m} (\left\langle \mathbf{v}, \Phi(t_k) \right\rangle - y_k)^2 \right] \quad \text{donde} \quad \Phi(t) = (\phi_1 (t), \ldots, \phi_n(t))
+\]
+\subsection*{Filtrado en base a contenidos}
+
+En el caso del filtrado basado en contenidos, recordamos que nuestro dataset nos proporciona 100.836 puntuaciones realizadas por 610 usuarios sobre 9742 películas, además, para cada una de estas, se tiene una clasificación en al menos uno de los géneros: \textit{Action, Adventure, Animation, Children, Comedy, Crime, Documentary, Drama, Fantasy, Film-Noir, Horror, Musical, Mystery, Romance, Sci-Fi, Thriller, War, Western}.
+\\
+
+De esta forma nuestro conjunto de datos es \({\{(m_i, r_i)\}}_{ i \in \{1,\ldots, 100.836\}}\), donde \(r_i\) es el puntaje que un cierto usuario le asignó a la película \(m_i\).
+\\
+
+Predefinimos las funciones \(\phi_k\), de la siguiente forma:
+\begin{itemize}
+  \item Enumeramos los géneros de películas del 1 al 18.
+  \item Enumeramos las películas del dataset del 1 al 9742.
+  \item Definimos \(\phi : \{1 \ldots 9742 \} \rightarrow \{0, 1\}\) tal que \(\phi_k(t) = 1 \Leftrightarrow\) la película \(t\) es del género \(k\), y 0 en otro caso.
+\end{itemize}
+
+Entonces, para hacer la recomendación basada en contenidos, tomamos un cierto usuario \(u\) y definimos el conjunto \(I_u = \{k \in \mathbb{N} : \text{el par } (m_k, r_k) \text{ corresponde al usuario } u \}\), luego, necesitamos encontrar el vector \(\mathbf{p}^{*}_u\) de puntajes estimados para el usuario \(u\), el cual debe cumplir que:
+
+\begin{equation}\label{eqP}
+  \mathbf{p}^{*}_u = \arg\min_{\mathbf{p}_u \in \mathbb{R}^{18} }  \left[ \sum_{k \in I_u} (\left\langle \mathbf{p}_u, \Phi(m_k) \right\rangle - r_k)^2 \right]
+\end{equation}
+
+
+Una vez se obtiene \(\mathbf{p}^{*}_u\), podemos generar una lista de preferencia de películas para el usuario \(u\) mediante el siguiente procedimiento:
+
+\begin{itemize}
+  \item Consideramos la matriz \(Q \in \mathcal{M}_{9742\times18}(\mathbb{R})\) cuya fila k-ésima es el vector \(\Phi(m_k)\).
+  \item Hallamos \(\mathbf{p}^{*}_u\) que cumpla con \eqref{eqP}.
+  \item Hacemos \(\mathbf{r}^*_u = Q (\mathbf{p}^{*}_u)^T\).
+  \item Consideramos el vector \(\mathbf{l}_u\) resultado de aplicar un ordenamiento descendente en los valores de las componentes de \(\mathbf{r}^*_u\) y posteriormente tomar los índices originales de las componentes ordenadas, es decir, si \(\mathbf{r}^*_u = (7,9,22,3,47)\), entonces \(\mathbf{l}_u = (5, 3, 2, 1, 4)\).
+\end{itemize}
+
+De esta forma, \(\mathbf{l}_u\) tiene los n\(^\circ\) de película ordenados por preferencia descendente para el usuario \(u\).
+
+\subsection*{Filtrado colaborativo}
+
+Con el fin de mejorar el rendimiento del método anterior, queremos dejar que el algoritmo decida como definir las funciones \(\phi_k\) con el fin de que el algoritmo identifique patrones en la relación película-usuario y genere una función \(\Phi\) que extraiga una cantidad \(f \in \mathbb{N}\) de características en la misma.
+
+
+Entonces, nuestro problema ahora consiste en estimar \(\mathbf{p}_u\) para cada usuario, y \(\Phi(m_k)\) (que a partir de ahora llamaremos \(\mathbf{q}_k\)) para cada película.
+
+Esto se traduce en encontrar \(P^* \in \mathcal{M}_{610\times18}(\mathbb{R})\) cuya fila n-ésima es el vector \(\mathbf{p}^*_k\) y \(Q^* \in \mathcal{M}_{9742\times18}(\mathbb{R})\) cuya fila k-ésima es el vector \(\mathbf{q}^*_k\) que cumplan con:
+
+\[
+  (P^*, Q^*) = \arg\min_{P, Q}  \left[\sum_{u=1}^{610} \sum_{k \in I_u} (\left\langle \mathbf{p}_u, \mathbf{q}_k \right\rangle - r_{uk})^2 \right]
+\]
+
+Para esto vamos a aplicar un método iterativo de \textit{minimización alternada} con los siguientes pasos:
+
+\begin{itemize}
+  \item Elegimos un valor de \(f \in \mathbb{N}\)
+  \item Inicializar matrices \( P^{(0)} \in \mathcal{M}_{610 \times f}(\mathbb{R}) \) y \( Q^{(0)} \in \mathcal{M}_{9742 \times f}(\mathbb{R}) \) (en la implementación se ve que las hacemos aleatorias en una distribución normal con media 0 y varianza 1).
+  \item Para \( k \geq 0 \):
+        \begin{itemize}
+          \item \( p_u^{(k+1)} = \arg\min_{X \in \mathbb{R}^f} \| Q_u^{(k)} X - r_u \|^2 \quad \forall u \in \{1, \dots, 610\} \)
+          \item \( q_i^{(k+1)} = \arg\min_{Y \in \mathbb{R}^f} \| P_i^{(k+1)} Y - r_i \|^2 \quad \forall i \in \{1, \dots, 9742\} \)
+        \end{itemize}
+\end{itemize}
+
+Una vez terminadas las iteraciones, dado un usuario \(u\), se puede obtener su lista de preferencia, computando el vector \(\mathbf{r}^*_u = Q (\mathbf{p}^{*}_u)^T\), y considerando \(\mathbf{l}_u\) como en el filtrado en base a contenidos.
+
+Si bien este modelo debería funcionar a nivel teórico, la realidad es que este esquema iterativo tiene una probabilidad realmente grande de generar un \textit{sobreajuste}\footnote{El modelo aprende no solo los patrones generales y útiles que son representativos del problema, sino también las particularidades, ruidos o irregularidades presentes en los datos de entrenamiento que no son generalizables a nuevos datos.} en los datos de entrada y por lo tanto, si bien el error en los datos de entrada es realmente bajo, el error en los datos de prueba se dispara (como veremos en la sección de resultados).
+
+Para mitigar el \textit{sobreajuste}, utilizamos la regularización de Tychonoff. Este método introduce un término adicional en la función que buscamos minimizar, el cual penaliza soluciones con normas grandes.
+
+Entonces, las matrices \(P^*\) y \(Q^*\) que buscamos en este caso, son:
+\[
+  (P^*, Q^*) = \arg\min_{P, Q}  \left[\sum_{u=1}^{610} \sum_{k \in I_u} (\left\langle \mathbf{p}_u, \mathbf{q}_k \right\rangle - r_{uk})^2 + \lambda(\left\lVert \mathbf{p}_u\right\rVert^2  + \left\lVert \mathbf{q}_k\right\rVert^2 ) \right]
+\]
+
+Se puede modificar el algoritmo de la parte anterior para que contemple este nuevo término:
+
+\begin{itemize}
+  \item \( p_u^{(k+1)} = \arg\min_{X \in \mathbb{R}^f} \| \tilde{Q}_u^{(k)} X - \tilde{r}_u \|^2 \)
+  \item \( q_i^{(k+1)} = \arg\min_{Y \in \mathbb{R}^f} \| \tilde{P}_i^{(k+1)} Y - \tilde{r}_i \|^2 \)
+\end{itemize}
+
+donde aquí:
+
+\begin{itemize}
+  \item \( \tilde{Q}_u^{(k)} = \left(\frac{Q_u^{(k)}}{\sqrt{\lambda} I_f}\right)  \in \mathbb{R}^{(9742+f) \times f}, \quad \tilde{r}_u = \left(\frac{r_u}{\mathbf{0}_f}\right)  \in \mathbb{R}^{9742+f} \)
+  \item \( \tilde{P}_i^{(k+1)} =  \left(\frac{P_i^{(k+1)}}{\sqrt{\lambda} I_f}\right)  \in \mathbb{R}^{(610+f) \times f}, \quad \tilde{r}_i =  \frac{r_i}{\mathbf{0}_f} \in \mathbb{R}^{610+f} \)
+\end{itemize}
+
+(Aquí \( I_f \) es la matriz identidad \( f \times f \) y \( \mathbf{0}_f \) es el vector nulo de \( \mathbb{R}^f \).)
+
+
+Llegado este punto se puede obtener \(\mathbf{l}_u\) como antes, pero en este caso obtenemos que esta solución mitiga considerablemente el \textit{sobreajuste}.
+
+\section*{Implementación}
+
+Una vez modelados los problemas pasamos a mostrar una implementación en \texttt{Octave} de los solver para cada uno de ellos.
+
+\subsection*{Filtrado basado en contenidos}
+Recordando el procedimiento planteado en la sección de modelado tenemos:
+\begin{enumerate}
+  \item Computamos la matriz \(Q\) usando la función \texttt{createMovieGenderMatrix}:
+        \begin{lstlisting}
+    % -*- functionInfo -*-
+    %  PRE:  Existe un archivo CSV en path con la matriz Q, cuyas fila i-ésima es un vector qi de 0s y 1s donde en la posición k ponemos 1 si dicha película es del género k, y 0 en caso contrario.
+    %  POS: Se ha construido la matriz Q con las filas del csv, en formato sparse.
+    function Q = createMovieGenderMatrix (path)
+    
+    if (nargin != 1)
+    path = '../data/clasificacion_peliculas.csv';
+    end
+    
+    % Leer el archivo
+    data = csvread(path, 1, 1); % Saltar la cabecera
+    
+    % Extraer las dimensiones
+    num_peliculas = size(data, 1); % Número de filas (películas)
+    num_generos = size(data, 2); % Número de géneros (sin la columna de ID)
+    
+    % Extraer las posiciones de los valores no nulos (1s)
+    [row_indices, col_indices] = find(data == 1);
+    
+    % Crear la matriz sparse
+    Q = sparse(row_indices, col_indices, 1, num_peliculas, num_generos);
+    
+    end
+  \end{lstlisting}
+  \item Computamos el conjunto de datos de puntajes asignados por el usuario \(u\) con la función \texttt{createUserRatingsMatrix}:
+        \begin{lstlisting}
+% -*- functionInfo -*-
+%  PRE:  Existe un archivo CSV en path con las ternas (usuario_Id, pelicula_Id, puntaje) y un usario con la id usuario_id.
+%  POST: Se construye la matriz de duplas (id película y puntaje) para un usuario.
+function r_u = createUserRatingsMatrix(usuario_id, path)
+
+    if (nargin == 1)
+        path = '../data/puntajes_ajuste.csv';
+    end
+
+    % Leer los datos del archivo
+    data = csvread(path, 1, 0);
+
+    % Filtrar las filas correspondientes al usuario_id
+    filas_usuario = data((data(:, 1) == usuario_id), :);
+
+    % Crear la matriz de duplas (id película y puntaje)
+    r_u = filas_usuario(:, 2:3); % Segunda columna: id película, tercera columna: puntaje
+end
+  \end{lstlisting}
+  \item Encontramos el vector de gustos \(\mathbf{p}^*_u\) resolviendo el sistema \(Q_u(\mathbf{p}^*_u)^T = \mathbf{r}_u\) en el sentido de mínimos cuadrados, donde \(Q_u\) es la matriz \(Q\) considerando solo las filas correspondientes a las películas puntuadas por el usuario \(u\), y \(\mathbf{r}_u\) es el vector de puntajes asignados por el usuario \(u\). Para esto, usamos la función \texttt{createTasteVector}:
+        \begin{lstlisting}
+% -*- functionInfo -*-
+% PRE: Existe un usuario con el id usuario_id.
+% POST: Se ha construido el vector p_u con los puntajes estimados.
+function p_u = createTasteVector (usuario_id, Q, r_u)
+    % Cargar las matrices Q y R
+    if (nargin == 1)
+        Q = createMovieGenderMatrix();
+        r_u = createUserRatingsMatrix(usuario_id);
+    else if (nargin == 2)
+        r_u = createUserRatingsMatrix(usuario_id);
+    end
+
+    p_u = Q(r_u(:, 1), :) \ r_u(:, 2);
+
+end
+  \end{lstlisting}
+  \item Computamos los vectores \(\mathbf{r}^*_u\) \(\mathbf{l}_u\) como explicamos en la parte de modelado usando la función \texttt{generateRecommendationList}:
+        \begin{lstlisting}
+% -*- functionInfo -*-
+% PRE: Existe un usuario con el id usuario_id.
+% POST: Se construye la lista de recomendación de películas L para el usuario con el id usuario_id usando filtrado en base a contenidos, es decir, donde se ordenan los id de las películas en orden de preferencia decreciente, además se retorna LRatings, que es el vector de puntajes de las películas, que en la posición i-ésima tiene el puntaje de la película i.
+function [L, LRatings] = generateRecommendationList (usuario_id)
+    Qu = createMovieGenderMatrix();
+    r_u = createUserRatingsMatrix(usuario_id);
+    p_u = createTasteVector(usuario_id, Qu, r_u);
+    LRatings = Qu * p_u;
+
+    [~, L] = sort(abs(LRatings), 'descend');
+end
+  \end{lstlisting}
+\end{enumerate}
+
+\subsection*{Filtrado colaborativo}
+
+\subsubsection*{Minimización alternada sin regularización}
+
+Para la minimización alternada sin regularización, se implementó la función\\ \texttt{alternatingMinimization} que resuelve el problema de minimización alternada de la siguiente forma:
+
+\begin{lstlisting}
+% -*- functionInfo -*-
+% PRE: Existen los archivos de datos puntajes_ajuste.csv y puntajes_test.csv. Se tiene un valor f de la dimensión de las variables latentes, un valor maxiter de la cantidad de iteraciones y un valor saveError que indica si se quiere guardar el error cuadrático medio en cada iteración.
+% POST: Se intenta minimizar el error cuadrático medio de los puntajes calculados a través del método de minimización alternada, efectivo para datos de ajuste, no tanto para test. 
+function [P, Q, errAjuste, errTest] = alternatingMinimization(path, maxiter, f, saveError)
+    % Verificación de argumentos
+    if (nargin < 4)
+        saveError = 0;
+    end
+
+    if (nargin < 3)
+        f = 15;
+    end
+
+    if (nargin < 2)
+        maxiter = 50;
+    end
+
+    if (nargin < 1)
+        path = "../data/puntajes_ajuste.csv";
+    end
+
+    % Carga el conjunto de datos
+    addpath("../data");
+    data = csvread(path, 1, 0);
+    data_test = csvread("../data/puntajes_test.csv", 1, 0);
+
+    % Definir número de usuarios y películas
+    num_pelis = max(data(:, 2));
+    num_usuarios = max(data(:, 1));
+
+    % Inicialización aleatoria de las matrices P y Q
+    P = randn(num_usuarios, f);
+    Q = randn(num_pelis, f);
+
+    % Inicialización de vectores de error
+    errAjuste = zeros(maxiter, 1);
+    errTest = zeros(maxiter, 1);
+
+    % Preprocesar índices de usuarios y películas
+    indices_usuarios = cell(num_usuarios, 1);
+    indices_peliculas = cell(num_pelis, 1);
+
+    for u = 1:num_usuarios
+        indices_usuarios{u} = find(data(:, 1) == u);
+    end
+
+    for i = 1:num_pelis
+        indices_peliculas{i} = find(data(:, 2) == i);
+    end
+
+    % Iteraciones de minimización alternada
+    for k = 1:maxiter
+        % Actualización de P
+        for u = 1:num_usuarios
+            filas_usuario = data(indices_usuarios{u}, :);
+            r_u = filas_usuario(:, 2:3); % id película y puntaje
+            Q_u = Q(r_u(:, 1), :); % Subconjunto de Q
+            P(u, :) = Q_u \ r_u(:, 2); % Resolver sistema
+        end
+
+        % Actualización de Q
+        for i = 1:num_pelis
+            filas_pelicula = data(indices_peliculas{i}, :);
+            r_i = filas_pelicula(:, [1, 3]); % id usuario y puntaje
+            P_i = P(r_i(:, 1), :); % Subconjunto de P
+            Q(i, :) = P_i \ r_i(:, 2); % Resolver sistema
+        end
+
+        if (saveError)
+            errAjuste(k) = error_cuadratico_medio(P, Q, data);
+            errTest(k) = error_cuadratico_medio(P, Q, data_test);
+        end
+
+    end
+
+end
+\end{lstlisting}
+Donde la función \texttt{error\_cuadratico\_medio} es la dada en los datos del obligatorio.
+
+\subsubsection*{Minimización alternada con regularización de Tychonoff}
+Se hizo una implementación similar a la anterior, pero considerando la regularización de Tychonoff. Se obtiene la función \texttt{tychonoffRegularization} con el siguiente código:
+\begin{lstlisting}
+% -*- functionInfo -*-
+% PRE: Existen los archivos de datos puntajes_ajuste.csv y puntajes_test.csv. Se tiene un valor f de la dimensión de las variables latentes, un valor maxiter de la cantidad de iteraciones, un valor lambda de la regularización y un valor saveError que indica si se quiere guardar el error cuadrático medio en cada iteración.
+% POST: Se minimiza el error cuadrático medio de los puntajes calculados a través del método de minimización alternada con regularización de Tychonoff.
+function [P, Q, errAjuste, errTest] = tychonoffRegularization(path, maxiter, f, lambda, saveError)
+    % Verificación de argumentos
+    if (nargin < 5)
+        saveError = 0;
+    end
+
+    if (nargin < 4)
+        lambda = 1.2;
+    end
+
+    if (nargin < 3)
+        f = 15;
+    end
+
+    if (nargin < 2)
+        maxiter = 50;
+    end
+
+    if (nargin < 1)
+        path = "../data/puntajes_ajuste.csv";
+    end
+
+    % Carga el conjunto de datos
+    addpath("../data");
+    data = csvread(path, 1, 0);
+    data_test = csvread("../data/puntajes_test.csv", 1, 0);
+
+    % Definir número de usuarios y películas
+    num_pelis = max(data(:, 2));
+    num_usuarios = max(data(:, 1));
+
+    % Inicialización aleatoria de las matrices P y Q
+    P = 0.2 * randn(num_usuarios, f);
+    Q = 0.2 * randn(num_pelis, f);
+    sqrt_lambda_I = sqrt(lambda) * eye(f);
+    zeros_f = zeros(f, 1);
+
+    % Inicialización de vectores de error
+    errAjuste = zeros(maxiter, 1);
+    errTest = zeros(maxiter, 1);
+
+    % Preprocesar índices de usuarios y películas
+    indices_usuarios = cell(num_usuarios, 1);
+    indices_peliculas = cell(num_pelis, 1);
+
+    for u = 1:num_usuarios
+        indices_usuarios{u} = find(data(:, 1) == u);
+    end
+
+    for i = 1:num_pelis
+        indices_peliculas{i} = find(data(:, 2) == i);
+    end
+
+    % Iteraciones de minimización alternada
+    for k = 1:maxiter
+        % Actualización de P
+        for u = 1:num_usuarios
+            filas_usuario = data(indices_usuarios{u}, :);
+            r_u = filas_usuario(:, 2:3); % id película y puntaje
+            Q_u = Q(r_u(:, 1), :); % Subconjunto de Q
+            P(u, :) = [Q_u; sqrt_lambda_I] \ [r_u(:, 2); zeros_f]; % Resolver sistema
+        end
+
+        % Actualización de Q
+        for i = 1:num_pelis
+            filas_pelicula = data(indices_peliculas{i}, :);
+            r_i = filas_pelicula(:, [1, 3]); % id usuario y puntaje
+            P_i = P(r_i(:, 1), :); % Subconjunto de P
+            Q(i, :) = [P_i; sqrt_lambda_I] \ [r_i(:, 2); zeros_f]; % Resolver sistema
+        end
+
+        if (saveError)
+            errAjuste(k) = error_cuadratico_medio(P, Q, data);
+            errTest(k) = error_cuadratico_medio(P, Q, data_test);
+        end
+
+    end
+
+end
+
+\end{lstlisting}
+\section*{Resultados}
+\subsection*{Métricas de Evaluación}
+Para evaluar el desempeño de los sistemas implementados en este trabajo, se utilizó el error cuadrático medio (ECM) como métrica principal. El ECM mide la discrepancia entre los puntajes estimados con \(\left\langle \mathbf{p}_u , \mathbf{q}_i \right\rangle \) y los puntajes reales \(r_{ui}\), y se define como:
+
+\begin{equation}\label{eq:ecm}
+  \text{ECM} = \frac{1}{N} \sum_{u=1}^{610} \sum_{i \in I_u} (\left\langle \mathbf{p}_u , \mathbf{q}_i \right\rangle - r_{ui})^2
+\end{equation}
+
+donde:
+\begin{itemize}
+  \item \( N \): número total de puntuaciones consideradas (tanto en los datos de ajuste como de prueba).
+  \item \( M \): número total de usuarios.
+  \item \( I_u \): conjunto de ítems que el usuario \( u \) puntuó.
+  \item \( \langle p_u, q_i \rangle \): puntaje estimado por el modelo.
+  \item \( r_{ui} \): puntaje real otorgado por el usuario \( u \) al ítem \( i \).
+\end{itemize}
+
+El ECM es adecuado como métrica de calidad para este problema porque:
+\begin{itemize}
+  \item \textbf{Penaliza grandes errores:} Al elevar al cuadrado las diferencias, se asigna mayor peso a las predicciones con mayores desviaciones, lo que ayuda a identificar casos extremos donde el modelo no está funcionando bien.
+  \item \textbf{Promueve un ajuste generalizado:} Minimizar el ECM garantiza que las predicciones estén, en promedio, lo más cerca posible de los valores reales, logrando un equilibrio entre precisión y generalización.
+  \item \textbf{Comparabilidad:} El ECM permite comparar directamente la calidad de las predicciones en diferentes configuraciones del modelo, como el impacto del filtrado basado en contenido frente al colaborativo o el efecto de la regularización.
+\end{itemize}
+
+Por estas razones, el ECM es una métrica estándar en el desarrollo y evaluación de sistemas de recomendación. Además, proporciona una base sólida para analizar el desempeño de los métodos implementados, tanto en los datos de ajuste como en los de prueba, ayudando a identificar fenómenos como el sobreajuste y a ajustar los parámetros del modelo.
+Se utilizó la función \texttt{error\_cuadratico\_medio} dada en los datos de este obligatorio, para calcular el ECM en cada caso.
+
+\subsection*{Resultados de filtrado basado en contenidos}
+
+Para evaluar el rendimiento del filtrado basado en contenidos, se implementó la función \texttt{compareResults} que toma un id de usuario y calcula el ECM en los datos de ajuste y de prueba para el usuario dado:
+
+\begin{lstlisting}
+% -*- functionInfo -*-
+% PRE: Existe un usuario con el id user_id.
+% POST: Se compara la lista de recomendación de películas generada por el sistema de recomendación en base a contenidos con los puntajes disponibles en el dataset de test y de ajuste;
+function [errAjuste, errTest] = compareResults (user_id, test_data_path, ajuste_data_path)
+
+    if (nargin < 3)
+        ajuste_data_path = "../data/puntajes_ajuste.csv";
+    end
+
+    if (nargin < 2)
+        test_data_path = "../data/puntajes_test.csv";
+    end
+
+    [L, LRatings] = generateRecommendationList(user_id);
+
+    data_ajuste = csvread(ajuste_data_path, 1, 0);
+    test_data = csvread(test_data_path, 1, 0);
+
+    available_ratings_ajuste = data_ajuste(data_ajuste(:, 1) == user_id, [2, 3]);
+    available_ratings_test = test_data(test_data(:, 1) == user_id, [2, 3]);
+
+    errAjuste = (norm(LRatings(available_ratings_ajuste(:, 1)) - available_ratings_ajuste(:, 2), 2)^2) / size(available_ratings_ajuste, 1);
+    errTest = (norm(LRatings(available_ratings_test(:, 1)) - available_ratings_test(:, 2), 2)^2) / size(available_ratings_test, 1);
+
+endfunction
+\end{lstlisting}
+
+Al utilizarla para el usuario 4, obtenemos los siguientes resultados:
+
+\begin{lstlisting}
+octave:1> [errAjuste, errTest] = compareResults(4);
+octave:2> errAjuste
+errAjuste = 3.2757
+octave:3> errTest
+errTest = 2.2139
+\end{lstlisting}
+
+Los datos que se obtienen pueden hacer un poco de ruido a primera vista, pensando que el error en los datos de ajuste es mayor que en los de prueba, pero esto se debe a que la cantidad de datos de prueba es mucho menor que la de los de ajuste, esto ocasiona que al haber más datos, la probabilidad de acumular un error mayor crece.
+
+\subsection*{Resultados de filtrado colaborativo}
+Para el caso de filtrado basado en contenidos, vimos como en las implementaciones de \texttt{alternatingMinimization} y \texttt{tychonoffRegularization} se guardaba el error cuadrático medio en cada iteración, esto nos permite graficar la evolución del error en función de las iteraciones, lo que nos permite ver si el modelo converge y si lo hace, en cuántas iteraciones lo hace.
+
+A modo de no saturar con gráficas el informe, adjuntamos en en la ruta\\ \texttt{Código/scripts\_parte2/figuras} diferentes gráficas que muestran la evolución del error cuadrático medio en función de las iteraciones para diferentes valores de \( f \) y \( \lambda \).	
+
+Lo que observamos en dichas figuras es que a medida que aumentamos la dimensión de las variables latentes \( f \), el error cuadrático medio disminuye, lo que indica que el modelo es capaz de ajustarse mejor a los datos. Sin embargo, este efecto no es lineal, y a partir de cierto valor de \( f \) el error comienza a estabilizarse, lo que sugiere que agregar más variables latentes no necesariamente mejora la calidad de las recomendaciones.
+
+En cuanto a los valores de \( \lambda \), observamos que la regularización de Tychonoff permite controlar el sobreajuste y mejorar la generalización del modelo. A medida que aumentamos \( \lambda \), el error cuadrático medio en los datos de prueba disminuye, lo que indica que el modelo es capaz de generalizar mejor a nuevos datos y evitar el sobreajuste.
+
+
+\section*{Conclusión}
+
+Los resultados obtenidos en este trabajo evidencian la efectividad de los métodos de recomendación basados en mínimos cuadrados y regularización. El filtrado colaborativo, a través de la minimización alternada, mostró ser capaz de capturar relaciones complejas entre usuarios e ítems, mientras que el filtrado basado en contenidos demostró ser útil en escenarios donde la información explícita de los ítems está disponible. Sin embargo, cada enfoque presenta limitaciones, como el riesgo de sobreajuste en modelos no regularizados y la dependencia de información contextual en el caso del filtrado basado en contenidos.
+
+El uso de la regularización de Tychonoff permitió mitigar el sobreajuste, logrando un balance entre precisión y generalización, especialmente en los datos de prueba. Los experimentos mostraron que aumentar la dimensionalidad del espacio latente mejora el ajuste del modelo hasta un punto de saturación, lo que resalta la importancia de ajustar cuidadosamente los parámetros \(f\) y \(\lambda\) para maximizar el rendimiento sin comprometer la eficiencia computacional.
+
+En conclusión, este estudio proporciona un análisis detallado de dos enfoques fundamentales para sistemas de recomendación, destacando la importancia de métricas como el error cuadrático medio para evaluar su desempeño. Las implementaciones realizadas no solo permiten explorar el impacto de diversos parámetros, sino que también sientan una base sólida para futuras mejoras y adaptaciones en contextos reales, como aplicaciones comerciales o plataformas digitales.
+
+
+\begin{thebibliography}{9} % El argumento especifica el ancho del número más largo
   
-  \bibitem{example2}
-  Author, \textit{Title}, Journal, Year.
+  \bibitem{repoGithub} Repositorio de GitHub con código fuente y datos adjuntos, \url{https://github.com/santi-esquerre/MetNum--Obligatorio2--SistemasDeRecomendacion}
+  
 \end{thebibliography}
+
+
 
 \end{document}
