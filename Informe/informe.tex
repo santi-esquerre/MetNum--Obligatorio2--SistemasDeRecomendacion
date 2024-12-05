@@ -216,7 +216,7 @@ De esta forma, \(\mathbf{l}_u\) tiene los n\(^\circ\) de película ordenados por
 
 \subsection*{Filtrado colaborativo}
 
-Con el fin de mejorar el rendimiento del método anterior, queremos dejar que el algoritmo decida como definir las funciones \(\phi_k\) con el fin de que el algoritmo identifique patrones en la relación película-usuario y genere una función \(\Phi\) que extraiga una cantidad \(f \in \mathbb{N}\) de características en la misma.
+Con el fin de mejorar el rendimiento del método anterior, queremos dejar que el algoritmo decida como definir las funciones \(\phi_k\) con el fin de que el algoritmo identifique patrones en la relación película-usuario y genere una función \(\Phi\) que extraiga una cantidad \(f \in \mathbb{N}\) de características (variables latentes) de la misma.
 
 
 Entonces, nuestro problema ahora consiste en estimar \(\mathbf{p}_u\) para cada usuario, y \(\Phi(m_k)\) (que a partir de ahora llamaremos \(\mathbf{q}_k\)) para cada película.
@@ -261,7 +261,7 @@ donde aquí:
 
 \begin{itemize}
   \item \( \tilde{Q}_u^{(k)} = \left(\frac{Q_u^{(k)}}{\sqrt{\lambda} I_f}\right)  \in \mathbb{R}^{(9742+f) \times f}, \quad \tilde{r}_u = \left(\frac{r_u}{\mathbf{0}_f}\right)  \in \mathbb{R}^{9742+f} \)
-  \item \( \tilde{P}_i^{(k+1)} =  \left(\frac{P_i^{(k+1)}}{\sqrt{\lambda} I_f}\right)  \in \mathbb{R}^{(610+f) \times f}, \quad \tilde{r}_i =  \frac{r_i}{\mathbf{0}_f} \in \mathbb{R}^{610+f} \)
+  \item \( \tilde{P}_i^{(k+1)} =  \left(\frac{P_i^{(k+1)}}{\sqrt{\lambda} I_f}\right)  \in \mathbb{R}^{(610+f) \times f}, \quad \tilde{r}_i =  \left(\frac{r_i}{\mathbf{0}_f}\right) \in \mathbb{R}^{610+f} \)
 \end{itemize}
 
 (Aquí \( I_f \) es la matriz identidad \( f \times f \) y \( \mathbf{0}_f \) es el vector nulo de \( \mathbb{R}^f \).)
